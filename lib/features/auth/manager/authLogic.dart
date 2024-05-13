@@ -14,36 +14,32 @@ enum AuthStatus { initial, loading, success, failure }
 
 class AuthStatee {
   final AuthStatus status;
+
   AuthStatee(this.status);
 }
 
 class Authh extends Cubit<AuthStatee> {
   Authh() : super(AuthStatee(AuthStatus.initial));
 
-
-
-  Future<void> registerUser(String email, String password, String name, BuildContext context) async {
+  Future<void> registerUser(
+      String email, String password, String name, BuildContext context) async {
     emit(AuthStatee(AuthStatus.loading));
 
-    final url = 'put link register here';
-    final Map<String, String> data = {
-      "email": email,
-      "name": name,
-      "password": password,
-    };
+    final url =
+        'http://carsapi.runasp.net/api/Account/register?PersonName=$name&Email=$email&Password=$password';
 
     final response = await http.post(
       Uri.parse(url),
       headers: {
-        'accept': '*/*',
-        'Content-Type': 'application/json-patch+json',
+        'access-control-allow-origin': '*',
+        'content-type': 'application/problem+json; charset=utf-8',
+        // Add other headers as needed
       },
-      body: jsonEncode(data),
     );
 
     if (response.statusCode == 200) {
       emit(AuthStatee(AuthStatus.success));
-      Get.to(()=>HomeView() , transition: Transition.fadeIn);
+      Get.to(() => HomeView(), transition: Transition.fadeIn);
     } else if (response.statusCode == 400) {
       emit(AuthStatee(AuthStatus.failure));
 
@@ -70,15 +66,15 @@ class Authh extends Cubit<AuthStatee> {
     }
   }
 
-
   Future<void> login(
-      String emailOrPhone, String password, BuildContext context) async {
+      String email, String password, BuildContext context) async {
     emit(AuthStatee(AuthStatus.loading));
 
-    final url = 'here put link login ';
+    final url =
+        'http://carsapi.runasp.net/api/Account/login';
 
     final Map<String, String> data = {
-      "email": emailOrPhone,
+      "email": email,
       "password": password,
     };
 
@@ -93,7 +89,7 @@ class Authh extends Cubit<AuthStatee> {
 
     if (response.statusCode == 200) {
       emit(AuthStatee(AuthStatus.success));
-       Get.to(()=>HomeView() ,transition: Transition.fadeIn);
+      Get.to(() => HomeView(), transition: Transition.fadeIn);
       print('Sign in successful. Response: ${response.body}');
     } else if (response.statusCode == 400) {
       emit(AuthStatee(AuthStatus.failure));

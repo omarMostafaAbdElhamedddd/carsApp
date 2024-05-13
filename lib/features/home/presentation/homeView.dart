@@ -2,6 +2,7 @@ import 'package:cars_app/conts.dart';
 import 'package:cars_app/features/carDetails/presentation/carDetailsView.dart';
 import 'package:cars_app/features/home/manger/getAllbrands.dart';
 import 'package:cars_app/features/home/presentation/widgets/customHomeItem.dart';
+import 'package:cars_app/features/home/presentation/widgets/listGetCarsBybrand&model.dart';
 import 'package:cars_app/features/home/presentation/widgets/listOfCars.dart';
 import 'package:cars_app/features/home/presentation/widgets/video.dart';
 import 'package:cars_app/features/modelsInsideBrand/presentation/modelsInsideBrand.dart';
@@ -53,9 +54,11 @@ class HomeView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                CustomVerticalSizeBox(padding: .4,),
+
                 Row(
                   children: [
-                    CustomHorizentalSizeBox(padding: .2,),
+                    CustomHorizentalSizeBox(padding: .3,),
                     CustomText(text: 'All Categories' , fontWeight: FontWeight.bold,fontSize: 20,),
                     Spacer(),
                     CustomText(text: 'See more' , fontSize: 18,),
@@ -63,20 +66,52 @@ class HomeView extends StatelessWidget {
                     CustomHorizentalSizeBox(padding: .1,),
                   ],
                 ),
-                SizedBox(
-                  height: SizeConfig.screenHeight!*.25,
-                  child: ListView.builder(
-                    itemCount: 10,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index){
-                    return  GestureDetector(
-                      onTap: (){
-                        Get.to(()=> ListOfCarsbycategory(category: 'current category',), transition: Transition.fade);
-                      },
-                        child: CustomCategoryItem());
-                  }),
-                ),
+                  CustomVerticalSizeBox(padding: .5,),
+                FutureBuilder(future: GetAllBrandAndCategoreis.getallCategoteis(),
+                    builder: (context, sn){
+                      if(sn.connectionState ==ConnectionState.waiting){
+                        return SizedBox(
+                          height: SizeConfig.screenHeight!*.3,
+                          child:  Center(child: SpinKitCircle(color: kPreimaryColor,),),
+                        );
+                      }else if(sn.hasData){
+                        return    SizedBox(
+                          height: SizeConfig.screenHeight!*.3,
+                          child: ListView.builder(
+                              itemCount: sn.data!.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index){
+                                return  GestureDetector(
+                                    onTap: (){
+                                      Get.to(()=>ListOfCarsbyBrandAndModel( modelId:sn.data![index].id) ,transition: Transition.fadeIn);
+                                    },
+                                    child: Stack(
+                                      alignment: Alignment.topLeft,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 30),
+                                          child: CustomCategoryItem(),
+                                        ),
+                                        Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 10 , vertical: 4),
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(8),
+                                                color: kPreimaryColor.withOpacity(.2)
+                                            ),
+                                            child: CustomText(text: sn.data![index].name , color: secondColor,))
+                                      ],
+                                    ));
+                              }),
+                        );
+                      }else{
+                        return SizedBox(
+                          height: SizeConfig.screenHeight!*.3,
+                          child: Center(child: SpinKitCircle(color: Colors.red,),),
+                        );
+                      }
+                    }),
 
+               CustomVerticalSizeBox(padding: .5,),
 
                 Row(
                   children: [
@@ -88,7 +123,8 @@ class HomeView extends StatelessWidget {
                     CustomHorizentalSizeBox(padding: .1,),
                   ],
                 ),
-             FutureBuilder(future: GetAllBrand.getallBRands(),
+             CustomVerticalSizeBox(padding: .5,),
+             FutureBuilder(future: GetAllBrandAndCategoreis.getallBRands(),
                  builder: (context, sn){
                if(sn.connectionState ==ConnectionState.waiting){
                  return SizedBox(
@@ -99,23 +135,39 @@ class HomeView extends StatelessWidget {
                  return    SizedBox(
                    height: SizeConfig.screenHeight!*.3,
                    child: ListView.builder(
-                       itemCount: 10,
+                       itemCount: sn.data!.length,
                        scrollDirection: Axis.horizontal,
                        itemBuilder: (context, index){
                          return  GestureDetector(
                              onTap: (){
                                Get.to(()=>ModelsInsideBRand(brand: sn.data![index].id,) ,transition: Transition.fade);
                              },
-                             child: CustomCategoryItem());
+                             child: Stack(
+                               alignment: Alignment.topLeft,
+                               children: [
+                                 Padding(
+                                   padding: const EdgeInsets.only(top: 30),
+                                   child: CustomCategoryItem(),
+                                 ),
+                                 Container(
+                                   padding: EdgeInsets.symmetric(horizontal: 10 , vertical: 4),
+                                     decoration: BoxDecoration(
+                                       borderRadius: BorderRadius.circular(8),
+                                     color: kPreimaryColor.withOpacity(.2)
+                                     ),
+                                     child: CustomText(text: sn.data![index].name , color: secondColor,))
+                               ],
+                             ));
                        }),
                  );
                }else{
                  return SizedBox(
                    height: SizeConfig.screenHeight!*.3,
-                   child: Center(child: SpinKitCircle(color: kPreimaryColor,),),
+                   child: Center(child: SpinKitCircle(color: Colors.red,),),
                  );
                }
-                 })
+                 }),
+                CustomVerticalSizeBox(),
               ],
             )
           ],

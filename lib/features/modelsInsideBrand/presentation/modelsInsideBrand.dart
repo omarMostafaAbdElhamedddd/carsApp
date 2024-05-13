@@ -4,6 +4,7 @@ import 'package:cars_app/features/home/manger/getModelByVrand.dart';
 import 'package:cars_app/features/home/presentation/widgets/listGetCarsBybrand&model.dart';
 import 'package:cars_app/features/home/presentation/widgets/listOfCars.dart';
 import 'package:cars_app/features/splashView/widgets/customText.dart';
+import 'package:cars_app/utitls/resposiveSize.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -14,7 +15,7 @@ import '../../home/models/modelMode.dart';
 
 class ModelsInsideBRand extends StatelessWidget {
   const ModelsInsideBRand({super.key, required this.brand});
- final String brand ;
+ final int brand ;
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -31,26 +32,39 @@ class ModelsInsideBRand extends StatelessWidget {
         future: GetModelByBRand.getmodelaByBRand(brand),
         builder: (context ,snabshot) {
           if(snabshot.hasData){
+            print(snabshot.data![1].image);
             return ListView.builder(
+              itemCount: snabshot.data!.length,
                 padding: EdgeInsets.only(top: 30),
                 itemBuilder:  (c,index){
-                  return GestureDetector(
-                    onTap: (){
-                      Get.to(()=>ListOfCarsbyBrandAndModel( model:snabshot.data![index].name) ,transition: Transition.fadeIn);
-                    },
-                    child: Stack(
-                      children: [
-                        Column(
-                          children: [
-                            CustomBrand(),
-                            Divider(),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10 , vertical: 10),
-                          child: CustomText(text: 'Model name ' , fontSize: 18,fontWeight: FontWeight.bold,),
-                        )
-                      ],
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: (){
+                        Get.to(()=>ListOfCarsbyBrandAndModel( modelId:snabshot.data![index].id) ,transition: Transition.fadeIn);
+                      },
+                      child: Stack(
+                        children: [
+                          Column(
+                            children: [
+
+                             Image.network(snabshot.data![index].image , height: SizeConfig.screenHeight!*.3,),
+                              Divider(),
+                            ],
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10 , vertical: 4),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: kPreimaryColor.withOpacity(.2)
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10 , vertical: 10),
+                              child: CustomText(text: snabshot.data![index].name , fontSize: 18,fontWeight: FontWeight.bold,),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 });
@@ -58,6 +72,7 @@ class ModelsInsideBRand extends StatelessWidget {
             return Center(child: SpinKitCircle(color: kPreimaryColor,),);
 
           }else{
+            print(snabshot.error);
             return Center(child: CustomText(text: 'SomeThing went wrong',),);
           }
         },
@@ -66,14 +81,14 @@ class ModelsInsideBRand extends StatelessWidget {
   }
 }
 class CustomBrand extends StatelessWidget {
-  const CustomBrand({super.key});
-
+  const CustomBrand({super.key, required this.image});
+ final String image ;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Image.asset('assets/images/carr.JPG'),
+        Image.network(image),
       ],
     );
   }

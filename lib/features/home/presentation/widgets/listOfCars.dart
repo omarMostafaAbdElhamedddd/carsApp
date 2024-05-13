@@ -9,11 +9,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
 import '../../../carDetails/presentation/carDetailsView.dart';
+import '../../models/moelCar.dart';
 import 'customHomeItem.dart';
 
 class ListOfCarsbycategory extends StatelessWidget {
-  const ListOfCarsbycategory({super.key,required this.category});
-   final String category ;
+  const ListOfCarsbycategory({super.key,required this.car});
+   final List<Car> car ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +27,7 @@ class ListOfCarsbycategory extends StatelessWidget {
         }, icon: Icon(Icons.arrow_back_ios, color: kPreimaryColor,),),
       ),
       body:FutureBuilder(
-        future: GetCarsByBrandOrCatergory.getCarsByCatergory(category),
+        future: GetCarsByBrandOrCatergory.getCarsByCatergory(''),
         builder: (context,state){
 
           if(state.connectionState == ConnectionState.waiting){
@@ -37,10 +38,10 @@ class ListOfCarsbycategory extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                       onTap: () {
-                        Get.to(() => CarDetailsView(),
+                        Get.to(() => CarDetailsView(car: car[index],),
                             transition: Transition.circularReveal);
                       },
-                      child: CustomItemHome());
+                      child: CustomItemHome(car: car[index],));
                 });
           }else{
             return Center(child: CustomText(text: 'SomeThing went wrong',),);

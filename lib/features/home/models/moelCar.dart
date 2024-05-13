@@ -1,6 +1,5 @@
 
 import 'dart:convert';
-
 class Car {
   int id;
   String name;
@@ -38,25 +37,25 @@ class Car {
     required this.model,
   });
 
-  factory Car.fromJson(String jsonString) {
-    final Map<String, dynamic> data = json.decode(jsonString);
+  factory Car.fromJson(Map<String, dynamic> json) {
     return Car(
-      id: data['id'],
-      name: data['name'],
-      year: DateTime.parse(data['year']),
-      cylinder: data['cylinder'],
-      doors: data['doors'],
-      imagesUrls: List<String>.from(data['imagesUrls']),
-      minPrice: data['minPrice'],
-      maxPrice: data['maxPrice'],
-      motor: data['motor'],
-      country: data['country'],
-      colors: List<String>.from(data['colors']),
-      tank: data['tank'],
-      gearBox: data['gearBox'],
-      powerHorse: data['powerHorse'],
-      carType: data['carType'],
-      model: data['model'],
+      id: json['id'],
+      name: json['name'],
+      year: DateTime.parse(json['year']),
+      cylinder: json['cylinder'],
+      doors: json['doors'],
+      imagesUrls: List<String>.from(json['imagesUrls']),
+      minPrice: json['minPrice'].toDouble(),
+      maxPrice: json['maxPrice'].toDouble(),
+      motor: json['motor'],
+      country: json['country'],
+      colors: List<String>.from(json['colors']),
+      tank: json['tank'],
+      gearBox: json['gearBox'],
+      powerHorse: json['powerHorse'],
+      carType: json['carType'],
+      model: json['model'],
     );
   }
 }
+

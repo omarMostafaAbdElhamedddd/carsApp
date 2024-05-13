@@ -12,9 +12,9 @@ import '../../manger/getCarsbyCategoryOrVrand.dart';
 import 'customHomeItem.dart';
 
 class ListOfCarsbyBrandAndModel extends StatelessWidget {
-  const ListOfCarsbyBrandAndModel({super.key,required this.model});
+  const ListOfCarsbyBrandAndModel({super.key,required this.modelId});
 
-  final String model;
+  final int modelId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,21 +27,22 @@ class ListOfCarsbyBrandAndModel extends StatelessWidget {
           }, icon: Icon(Icons.arrow_back_ios, color: kPreimaryColor,),),
         ),
         body:FutureBuilder(
-          future: GetCarsByBrandOrCatergory.getCarsByModel( model ),
+          future: GetCarsByBrandOrCatergory.getCarsByModel(modelId),
           builder: (context,state){
 
             if(state.connectionState == ConnectionState.waiting){
               return Center(child: SpinKitCircle(color: kPreimaryColor,),);
             }else if(state.hasData){
               return  ListView.builder(
+                itemCount: state.data!.length,
                   padding: EdgeInsets.symmetric(vertical: 20),
                   itemBuilder: (context, index) {
                     return GestureDetector(
                         onTap: () {
-                          Get.to(() => CarDetailsView(),
+                          Get.to(() => CarDetailsView(car:state.data![index],),
                               transition: Transition.circularReveal);
                         },
-                        child: CustomItemHome());
+                        child: CustomItemHome(car: state.data![index],));
                   });
             }else{
               return Center(child: CustomText(text: 'SomeThing went wrong',),);

@@ -1,13 +1,8 @@
 
-
-import 'package:cars_app/features/home/presentation/homeView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' hide Transition;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../../conts.dart';
 import '../../../../utitls/resposiveSize.dart';
 import '../../../splashView/widgets/customText.dart';
@@ -40,7 +35,7 @@ class _SignUpViewState extends State<SignUpView> {
 
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  CustomVerticalSizeBox(padding: 2,),
+                  CustomVerticalSizeBox(padding: 1.3,),
                   Image.asset(logoWithKPrCokor),
                   CustomVerticalSizeBox(padding: .5,),
                   CustomText(text: 'Sign up' , fontSize: 30,fontWeight: FontWeight.bold,),
@@ -101,7 +96,8 @@ class _SignUpViewState extends State<SignUpView> {
                           },
                           child: CustomText(text: 'Sign in ' , fontSize: 22,fontWeight: FontWeight.bold,textDecoration: TextDecoration.underline,))
                     ],
-                  )
+                  ),
+                  CustomVerticalSizeBox(),
 
 
                 ],

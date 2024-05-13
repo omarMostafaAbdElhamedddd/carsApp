@@ -6,24 +6,40 @@ import 'dart:convert';
 
 import 'package:cars_app/features/home/models/brandModel.dart';
 import 'package:http/http.dart'as http;
-class GetAllBrand{
+class GetAllBrandAndCategoreis{
   static Future<List<BrandModel>> getallBRands() async {
     http.Response response = await http.get(
-        Uri.parse('here put link to get models by brand'),
-        headers: {
+        Uri.parse('http://carsapi.runasp.net/api/Brand'),
 
-        }
     );
     print('after');
     print(response.statusCode);
-    Map<String, dynamic> allGlasses = jsonDecode(response.body);
+   List<dynamic> allBrands = jsonDecode(response.body);
 
     List<BrandModel> brands = [];
-    for (int i = 0; i < allGlasses['brands'].length; i++) {
-      brands.add(BrandModel.fromjson(allGlasses['brands'][i]));
+    for (int i = 0; i < allBrands.length; i++) {
+      brands.add(BrandModel.fromjson(allBrands[i]));
 
     }
 
     return brands;
   }
+  static Future<List<BrandModel>> getallCategoteis() async {
+    http.Response response = await http.get(
+      Uri.parse('http://carsapi.runasp.net/api/Category'),
+
+    );
+    print('after');
+    print(response.statusCode);
+    List<dynamic> allCategoies = jsonDecode(response.body);
+
+    List<BrandModel> brands = [];
+    for (int i = 0; i < allCategoies.length; i++) {
+      brands.add(BrandModel.fromjson(allCategoies[i]));
+
+    }
+
+    return brands;
+  }
+
 }

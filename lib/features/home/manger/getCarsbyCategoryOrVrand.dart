@@ -8,9 +8,9 @@ import 'package:cars_app/features/home/models/moelCar.dart';
 class GetCarsByBrandOrCatergory{
 
 
-   static Future<List<Car>> getCarsByModel(String model) async {
+   static Future<List<Car>> getCarsByModel(int modelId) async {
      http.Response response = await http.get(
-         Uri.parse('here put link to get cars by brand & model'),
+         Uri.parse('http://carsapi.runasp.net/api/Model/$modelId'),
          headers: {
 
          }

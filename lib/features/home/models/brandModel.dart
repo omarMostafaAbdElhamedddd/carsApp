@@ -1,12 +1,12 @@
 
 class BrandModel{
- late String id ;
+ late var id ;
 late String name ;
- late String ? image ;
 
- BrandModel({required this.id , required this.name ,required this.image});
+
+ BrandModel({required this.id , required this.name });
 
  factory BrandModel.fromjson(json){
-   return BrandModel(id: json['id'], name: json['name'], image: json['iameg']);
+   return BrandModel(id: json['id'], name: json['name']);
  }
 }
