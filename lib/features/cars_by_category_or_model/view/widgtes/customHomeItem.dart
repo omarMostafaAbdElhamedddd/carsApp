@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../conts.dart';
 import '../../../../utitls/resposiveSize.dart';
 import '../../../splashView/widgets/customText.dart';
-import '../../models/moelCar.dart';
+import '../../../cars_by_category_or_model/model/CarModel.dart';
 
 class CustomItemHome extends StatelessWidget {
   const CustomItemHome({super.key, required this.car});
@@ -34,14 +34,14 @@ final Car car ;
                 ],
               ),
 
-              child: Image.network(car.imagesUrls.first , height: SizeConfig.screenHeight!*.13,width: SizeConfig.screenWidth!*.3,fit: BoxFit.fill,)),
+              child: Image.network(car.imagesUrls.first , height: SizeConfig.screenHeight!*.13,width: SizeConfig.screenWidth!*.3,fit: BoxFit.cover,)),
           CustomHorizentalSizeBox(padding: .5,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(text: car.name, fontSize: 18,color: Colors.black,),
               CustomVerticalSizeBox(padding: .3,),
-              CustomText(text: 'From${car.minPrice} To ${car.maxPrice}\$' , fontSize: 18,maxLines: 2,),
+              CustomText(text: '${car.minPrice} \$ : ${car.maxPrice}\$' , fontSize: 16,maxLines: 2,),
               CustomVerticalSizeBox(padding: .3,),
               CustomText(text: 'Doors num : ${car.doors} ' , fontSize: 18,color: Colors.black,),
             ],)

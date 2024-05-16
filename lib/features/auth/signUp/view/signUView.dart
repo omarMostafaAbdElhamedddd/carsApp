@@ -19,6 +19,11 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  @override
+  void initState()  async{
+  Future.delayed(Duration(seconds: 1));
+    super.initState();
+  }
   TextEditingController controller1 = TextEditingController();
   TextEditingController controller2 = TextEditingController();
   TextEditingController controller3 = TextEditingController();

@@ -2,7 +2,7 @@
 
  import 'dart:convert';
 
-import 'package:cars_app/features/home/models/moelCar.dart';
+import 'package:cars_app/features/home/models/CarModel.dart';
  import 'package:http/http.dart'as http;
 
 class GetCarsByBrandOrCatergory{
@@ -28,9 +28,9 @@ class GetCarsByBrandOrCatergory{
      return cars;
    }
 
-   static Future<List<Car>> getCarsByCatergory(String category) async {
+   static Future<List<Car>> getCarsByCatergory(int category) async {
      http.Response response = await http.get(
-         Uri.parse('here put link that get cars by category'),
+         Uri.parse('http://carsapi.runasp.net/api/Category/$category'),
          headers: {
 
          }

@@ -4,8 +4,9 @@ import 'package:cars_app/utitls/resposiveSize.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:iconly/iconly.dart';
 
-import '../../home/models/moelCar.dart';
+import '../../cars_by_category_or_model/model/CarModel.dart';
 
 class CarDetailsView extends StatelessWidget {
   const CarDetailsView({super.key,required this.car});
@@ -18,7 +19,7 @@ final Car car ;
         elevation: 0,
         leading: IconButton(onPressed: (){
           Navigator.pop(context);
-        },icon: Icon(Icons.arrow_back_ios , color: kPreimaryColor,),),
+        },icon: Icon(IconlyLight.arrow_left , color: kPreimaryColor,),),
       ),
       body: SingleChildScrollView(
         child: Column(
