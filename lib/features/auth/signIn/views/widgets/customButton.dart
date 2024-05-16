@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../conts.dart';
-import '../../../../splashView/widgets/customText.dart';
+import '../../../../splashView/view/widgets/customText.dart';
+
 
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key, required this.text, this.onTap});

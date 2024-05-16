@@ -1,13 +1,13 @@
 
 import 'package:cars_app/conts.dart';
+import 'package:cars_app/features/splashView/view/widgets/customText.dart';
 
-import 'package:cars_app/features/splashView/widgets/customText.dart';
 import 'package:cars_app/utitls/resposiveSize.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../auth/signIn/views/signInView.dart';
+import '../../auth/signIn/views/signInView.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

@@ -1,11 +1,10 @@
 
 
-
-
 import 'dart:convert';
-
-import 'package:cars_app/features/home/models/brandModel.dart';
 import 'package:http/http.dart'as http;
+import '../../models_inside_brand/model/modelClass.dart';
+
+
 class GetAllBrandAndCategoreis{
   static Future<List<BrandModel>> getallBRands() async {
     http.Response response = await http.get(

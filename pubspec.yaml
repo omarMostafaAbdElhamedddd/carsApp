@@ -43,6 +43,7 @@ dependencies:
   http: ^1.1.0
   flutter_spinkit: ^5.2.1
   video_player: ^2.8.5
+  cached_network_image: ^3.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -32,7 +32,9 @@ class _VideoScreenState extends State<VideoScreen> {
       });
   }
 
-  bool isPlay = false;
+
+
+  bool isPlay = true;
 
   @override
   void dispose() {
@@ -66,7 +68,10 @@ class _VideoScreenState extends State<VideoScreen> {
                         ),
                       ),
                     )
-                  : Center(child: CircularProgressIndicator(color: kPreimaryColor,)),
+                  : SizedBox(
+                  width: SizeConfig.screenWidth,
+                  height: SizeConfig.screenHeight! * .17,
+                  child: Center(child: CircularProgressIndicator(color: kPreimaryColor,))),
             ),
             IconButton(
                 onPressed: () {
